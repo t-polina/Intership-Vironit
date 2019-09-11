@@ -1,16 +1,21 @@
-// const stack = (function () {
-    class Stack{
-        constructor(){
-            this.array=[];
-        }
-        push(value){
-            this.array.push(value);
-            return this.array;
-        }
-        pop(){
-            this.array.pop();
-            return this.array
-        }
+class Stack{
+    constructor(){
+        this.array=[];
+        return Stack.count++;
     }
-//     return Stack;
-// }());
+    push(value){
+        this.array.push(value);
+        return value;
+    }
+    pop(){
+        this.array.pop();
+        return this.array
+    }
+    getCount(){
+        return Stack.count;
+    }
+    setCount(){
+        Stack.count--;
+    }
+}
+ Stack.count=0;

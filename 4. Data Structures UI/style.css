@@ -1,11 +1,45 @@
 .button-which-structure{
-    font-size: 16px;
+    font-size: 12px;
     text-align: center;
-    width: 200px;
-    height: 50px;
+    width: fit-content;
+    height: 30px;
     margin-left: 7%;
-    background: rgba(48, 255, 220, 0.603);
+    background: rgba(73, 255, 225, 0.381);
     border-radius:7px; 
     border:none;
     box-shadow: 0 0 5px rgb(0, 0, 0)
+}
+.stack-view{
+    border:2px solid black;
+}
+#view-which-structure{
+    text-align: center;
+}
+#view-which-structure > div{
+    margin: 30px auto;
+    border: 2px solid black;
+    padding: 10px;
+    height: fit-content;
+}
+.tree-view{
+    height: 150px;;
+}
+.left{
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    left: -50px;
+    font-size: 10pt;
+}
+
+.right{
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    left: 10px;
+    font-size: 10pt;
+}
+.root{
+    font-size: 10pt;
+
 }
