@@ -1,17 +1,17 @@
 class BinaryTree {
     constructor() {
         this.root = null;
-        this.current;
-        this.n;
+        this.current; //why did you for do this
+        this.n; //why did you for do this
         BinaryTree.count++;
     }
     add(value) {
         let node = {
             value: +value,
-            left: undefined,
-            right: undefined,
+            left: undefined, //By default if you don't define vafiable this is undefined. It's too much
+            right: undefined, //By default if you don't define vafiable this is undefined. It's too much
         }
-        if (this.root == null) {
+        if (this.root == null) { // Please use strict equality (===) only
             this.root = node
             return true;
         } else {
