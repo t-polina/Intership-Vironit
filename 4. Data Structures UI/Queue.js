@@ -1,13 +1,13 @@
 class Queue {
     constructor() {
         this.array = [];
-        return Queue.count++;
+        return Queue.count++; // How you use it?  Constructor shouldn't return any values
     }
     push(value) {
         this.array.push(value);
-        return value;
+        return value; // Why did you returns value?
     }
-    pop() {
+    pop() { // Please write me to skype that this method do
         this.array.forEach((element,index) => {
             this.array[index]=this.array[index+1]
         });
