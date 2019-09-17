@@ -1,0 +1,35 @@
+body{
+    margin: auto;
+    width: max-content;
+    background: rgb(222, 246, 255);
+}
+#container-current-weather{
+    margin: 10px auto;
+    font-family: 'Candara';
+    border: 5px groove #1E90FF;
+    padding: 10px;
+    width: max-content;
+    border-radius: 15px;
+    text-align: center;
+    background: rgb(222, 246, 255);
+}
+#input-container{
+    text-align: center;
+    margin-top: 10px;
+}
+#description{
+margin-top: -20px;
+font-style: italic;
+}
+#output-city-name{
+    font-size: 22pt;
+    margin: 5px 0 -10px 0;
+    font-weight: bold;
+}
+.input{
+    height: 25px;
+    width: 450px;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather</title>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="view">
+        <div id='input-container'>
+            <input list="list-country" placeholder="Enter country" id='input-country' class='input'>
+            <input list="list-city" placeholder="Enter city" id='input-city' class='input'>
+        </div>
+        <div id='input-container'>
+            <input type="radio" name="typeWeather" id="current-weather" value="current" checked="checked">Current
+            weather
+            <input type="radio" name="typeWeather" value="5days" id="5days-weather">5 days weather
+        </div>
+    </div>
+
+    <script src="ListCity.js"></script>
+    <script src="UI.js"></script>
+    <script src="Request.js"></script>
+    <script src="WeatherUI.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
