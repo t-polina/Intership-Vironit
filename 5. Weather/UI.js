@@ -21,6 +21,7 @@ class UI {
         document.getElementById('view').append(this.dataListCountry);
         for (let i = 0; i < arr.length; i++) {
             let op = document.createElement('option')
+            op.id='op';
             op.setAttribute("value", arr[i])
             this.dataListCountry.append(op)
         }
