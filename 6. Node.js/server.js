@@ -15,16 +15,22 @@ const server = http.createServer((req, res) => {
     }
     else if (url === '/text') {
         res.write(text);
+
         res.end();
     }
-    else if(url.substring(0,5)==='/name'){
-        res.write(`Hello ${url.substring(5)}`);
-        res.end();
+    else if (url.substring(0, 5) === '/show') {
+        if (url.substring(5, 11) === '?name=') {
+            res.write(`Hello ${url.substring(11, url.search(new RegExp('\&')))}`);
+            res.end();
+        } else {
+            res.write(`Enter parametr`);
+            res.end();
+        }
     }
-    else{
+    else {
         res.write('<a href=\'http://127.0.0.1:8080/hello\'>Hello world</a>');
         res.write('<p><a href=\'http://127.0.0.1:8080/text\'>Read txt file</a></p>');
-        res.write('<p><a href=\'http://127.0.0.1:8080/name\'>Hello name(add name in url)</a></p>');
+        res.write('<p><a href=\'http://127.0.0.1:8080/show\'>Hello name(add name)</a></p>');
         res.end();
     }
 });
