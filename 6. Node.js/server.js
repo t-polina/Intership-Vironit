@@ -15,7 +15,6 @@ const server = http.createServer((req, res) => {
     }
     else if (url === '/text') {
         res.write(text);
-
         res.end();
     }
     else if (url.substring(0, 5) === '/show') {
