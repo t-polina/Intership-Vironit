@@ -37,4 +37,9 @@ module.exports = class StageServiсe {
         }
         return race;
     }
+    async checkStageId(id) {
+        if (await StagesModel.find({ "_id": id }) == [])
+            return false;
+        else return true;
+    }
 } 

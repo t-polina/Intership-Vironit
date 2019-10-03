@@ -32,4 +32,9 @@ module.exports= class UserServise{
         }
         return leagueList;
     }
+    async checkUserId(id) {
+        if (await UserModel.find({ "_id": id }) == [])
+            return false;
+        else return true;
+    }
 }

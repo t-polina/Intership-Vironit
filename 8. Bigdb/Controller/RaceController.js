@@ -7,10 +7,13 @@ const user = new UserService();
 
 module.exports = class RaceController {
     async create(req, res) {
-        const obj = await race.createRace(req.body);
-        res.send(obj);
-        await stage.addRaсeInStage(req.body.stageSchema, obj._id);
-        await user.addRaсeInUser(req.body.userSchema, obj._id)
+        if (stage.checkStageId(req.stageSchema == [])&& user.checkUserId(req.userSchema == [])) {
+            const obj = await race.createRace(req.body);
+            res.send(obj);
+            await stage.addRaсeInStage(req.body.stageSchema, obj._id);
+            await user.addRaсeInUser(req.body.userSchema, obj._id)
+        }
+        else res.status(400).send("There is no such stage id");
     }
     async read(req, res) {
         res.send(await race.readRace());

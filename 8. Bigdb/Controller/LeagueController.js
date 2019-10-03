@@ -15,6 +15,6 @@ module.exports = class LeagueController {
         res.send(await league.updateLeague(req.body.id, req.body));
     }
     async getRace(req, res) {
-        res.send(await league.getRace(req.params.season));
+       res.send(await league.getRace(req.params.season));        
     }
 }
