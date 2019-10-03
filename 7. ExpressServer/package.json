@@ -4,11 +4,14 @@
   "description": "",
   "main": "sevres.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mongo":"c:/'Program_Files'/MongoDB/Server/4.2/bin/mongod.exe --dbpath=W:/mongodb-data"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.1"
   }
 }

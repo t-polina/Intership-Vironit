@@ -1,5 +1,6 @@
 let express = require('express');
 let app = express();
+require('./MongoService');
 app.use(express.json());
 require('./routes')(app);
 app.listen(8080, function () {

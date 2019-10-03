@@ -14,7 +14,7 @@ module.exports = class Service {
             this.userId = Math.floor(Math.random() * 10000);
             if (this.idArray.indexOf(this.userId) === -1) {
                 this.idArray.push(this.userId)
-                user.id = this.userId;
+                user._id = this.userId;
                 this.jsonFile.push(user);
                 break;
             }
