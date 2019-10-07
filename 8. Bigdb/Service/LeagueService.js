@@ -1,42 +1,49 @@
 const LeagueModel = require('../Model/LeagueModel');
+const UserModel = require("../Model/UserModel");
 const StageService = require('../Service/StageService');
 const stageService = new StageService();
 
 module.exports = class LeagueServiсe {
+
     async createLeague(body) {
-        const league = new LeagueModel(body);
-        return await league.save();
+        if (body.userSchema == undefined) {
+            const league = new LeagueModel(body);
+            return await league.save();
+        }
+        else if (await UserModel.find({ "_id": body.userSchema }) == false) {
+            await Promise.reject(new Error("there is no such user id"));
+        }
+        else {
+            const league = new LeagueModel(body);
+            return await league.save();
+        }
     }
+
     async updateLeague(id, body) {
-        return await LeagueModel.findByIdAndUpdate(id, body);
+        if (body.userSchema == undefined) {
+            return await LeagueModel.findByIdAndUpdate(id,body);
+        }
+        else if (await UserModel.find({ "_id": body.userSchema }) == false) {
+            await Promise.reject(new Error("there is no such user id"));
+        }
+        else {
+           await LeagueModel.findByIdAndUpdate( id,{ $addToSet: { userSchema: body.userSchema } })
+            delete body.userSchema;
+            return await LeagueModel.findByIdAndUpdate(id, body);
+        }
     }
+
     async deleteLeague(id) {
-        stageService.deleteStageFromLeague(id);
-        return await LeagueModel.remove({ "_id": id });
+        if (await LeagueModel.find({ "_id": id }) == false) {
+            await Promise.reject(new Error("there is no such league id"));
+        }
+        else {
+            await stageService.deleteStagesFromLeague(id);
+            return await LeagueModel.remove({ "_id": id });
+        }
     }
+
     async readLeague() {
         return await LeagueModel.find({});
-    }
-    async addStageInLeague(idLeague, idStage) {
-        await LeagueModel.updateOne({ "_id": idLeague }, { $push: { stageSchema: idStage } });
-    }
-    async deleteStageOfLeague(idStage) {
-        await LeagueModel.find({ stageSchema: idStage }).updateOne({ stageSchema: idStage }, { $pull: { stageSchema: idStage } });
-    }
-    async checkId(id) {
-        if (await LeagueModel.find({ "_id": id }) == [])
-            return false;
-        else return true;
-    }
-    async getRace(season) {
-        const a = await LeagueModel.find({ season: season }, { _id: 1 });
-        const race = []
-        for (let i = 0; i < a.length; i++) {
-            race.push(await stageService.getRace(a[i]._id));
-        }
-        return race;
-    }
-    async getLeague(id){
-        return  await LeagueModel.findById(id);
     }
 }

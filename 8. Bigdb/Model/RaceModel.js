@@ -14,7 +14,7 @@ const raceSchema = new mongoose.Schema({
     userSchema: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'UserModel',
-        // required: true
+        required: true
     },
     stageSchema: {
         type: mongoose.Schema.Types.ObjectId, 

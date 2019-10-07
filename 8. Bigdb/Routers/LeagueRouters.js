@@ -1,12 +1,12 @@
 const Controller = require('../Controller/LeagueController');
-const bodyParser = require("body-parser");
 const controller = new Controller();
 
-module.exports = function (app) {
-    app.get('/league', controller.read.bind(controller));
-    app.post('/league',controller.create.bind(controller) );
-    app.delete('/league', controller.delete.bind(controller));
-    app.put('/league', controller.update.bind(controller));
-    app.get('/league/:season', controller.getRace.bind(controller));
+module.exports = function (app,express) {
+    const router = express.Router();
+    router.get('/', controller.read.bind(controller));
+    router.post('/',controller.create.bind(controller) );
+    router.delete('/', controller.delete.bind(controller));
+    router.put('/', controller.update.bind(controller));
+    app.use('/league', router);
 };
   

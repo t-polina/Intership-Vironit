@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const RaceModel = require('../Model/RaceModel');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -18,13 +17,5 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    raceSchema: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'RaceModel'
-    }],
-    leagueSchema: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'LeagueModel'
-    }]
 })
 module.exports = User = mongoose.model('User', userSchema);

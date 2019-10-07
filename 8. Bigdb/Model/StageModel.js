@@ -6,16 +6,11 @@ const stageSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        // required: true
     },
     place: {
         type: String,
         required: true
     },
-    raceSchema: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'RaceModel',
-    }],
     leagueSchema: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'LeagueModel',

@@ -1,6 +1,10 @@
-const mongoose =require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Underground2', {
-    useNewUrlParser:true,
-    useFindAndModify:false,
-    useCreateIndex:true
-});
+const mongoose = require('mongoose');
+
+module.exports = function () {
+    mongoose.connect('mongodb://localhost:27017/Underground2', {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    });
+}

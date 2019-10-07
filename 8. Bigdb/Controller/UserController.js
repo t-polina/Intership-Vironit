@@ -1,12 +1,16 @@
-const RaceService=require('../Service/RaceService');
-const race=new RaceService();
-const UserService=require('../Service/UserService');
+const RaceService = require('../Service/RaceService');
+const race = new RaceService();
+const UserService = require('../Service/UserService');
 
-const user=new UserService();
+const user = new UserService();
 
 module.exports = class UserController {
     async create(req, res) {
-        res.send(await user.createUser(req.body));
+        try {
+            res.send(await user.createUser(req.body));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
     async read(req, res) {
         res.send(await user.readUser());
@@ -15,12 +19,16 @@ module.exports = class UserController {
         res.send(await user.deleteUser(req.body.id));
     }
     async update(req, res) {
-         res.send(await user.updateUser(req.body.id,req.body));
+        try {
+            res.send(await user.updateUser(req.body.id, req.body));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
-    async getWithRace(req,res){
-       res.send(await  race.readRaceForUser(req.params.id));
+    async getWithRace(req, res) {
+        res.send(await user.getUserRace(req.params.login));
     }
-    async getWithLeague(req,res){
-        res.send(await  user.getLeague(req.params.login));
+    async getWithLeague(req, res) {
+        res.send(await user.getUserLeague(req.params.login));
     }
 }

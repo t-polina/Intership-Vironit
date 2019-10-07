@@ -5,22 +5,33 @@ const stage = new StageService();
 
 module.exports = class StageController {
     async create(req, res) {
-        if (await league.checkId(req.body.leagueSchema)) {
+        try {
             const obj = await stage.createStage(req.body);
             res.send(obj);
             await league.addStageInLeague(req.body.leagueSchema, obj._id);
+        } catch (e) {
+            res.status(400).send(e.message);
         }
-        else res.status(400).send("There is no such league id");
     }
+
     async read(req, res) {
         res.send(await stage.readStage());
     }
+
     async delete(req, res) {
-        league.deleteStageOfLeague(req.body.id);
-        res.send(await stage.deleteStage(req.body.id));
+        try {
+            res.send(await stage.deleteStage(req.body.id));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
+
     async update(req, res) {
-        res.send(await stage.updateStage(req.body.id, req.body));
+        try {
+            res.send(await stage.updateStage(req.body.id, req.body));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
 }
 

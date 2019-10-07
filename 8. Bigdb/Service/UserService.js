@@ -1,13 +1,22 @@
-const  UserModel = require('../Model/UserModel');
-const League=require('../Service/LeagueService');
-const league=new League();
+const UserModel = require('../Model/UserModel');
+const RaceService = require('../Service/RaceService');
+const race = new RaceService();
+const LeagueModel = require('../Model/LeagueModel');
 
-module.exports= class UserServise{
+module.exports = class UserServise {
     async createUser(body) {
-        const user= new UserModel(body);
+        if (UserModel.find({ login: body.login })) {
+            await Promise.reject(new Error("login isn't unique"))
+        }
+        const user = new UserModel(body);
         return await user.save();
     }
     async updateUser(id, body) {
+        if (body.login !== undefined) {
+            if (await UserModel.find({ login: body.login })) {
+                await Promise.reject(new Error("login isn't unique"))
+            }
+        }
         return await UserModel.findByIdAndUpdate(id, body);
     }
     async deleteUser(id) {
@@ -16,25 +25,12 @@ module.exports= class UserServise{
     async readUser() {
         return await UserModel.find({});
     }
-    async addRaсeInUser(idUser, idRaсe) {
-        await UserModel.updateOne({ "_id": idUser }, { $push: {  raceSchema: idRaсe } });
+    async getUserRace(login) {
+        const userObj = await UserModel.find({ login: login }, { _id: 1 });
+        return await race.getRaceForUser(userObj[0]._id);
     }
-    async deleteRaсeOfUser(idRaсe) {
-        await UserModel.find({ raсeSchema: idRaсe }).updateOne({ raceSchema: idRaсe }, { $pull: { raceSchema: idRaсe } });
-    }
-    async getLeague(login){
-        const a = await UserModel.find({ login:login }, { leagueSchema:1,_id:false});
-        const leagueList=[];
-        for(let i=0;i<a.length;i++){
-            for(let j=0;j<a[i].leagueSchema.length;j++){
-              await  leagueList.push(await league.getLeague(a[i].leagueSchema[j]));
-            }
-        }
-        return leagueList;
-    }
-    async checkUserId(id) {
-        if (await UserModel.find({ "_id": id }) == [])
-            return false;
-        else return true;
+    async getUserLeague(login) {
+        const userObj = await UserModel.find({ login: login }, { _id: 1 });
+        return await LeagueModel.find({ userSchema: userObj[0]._id });
     }
 }

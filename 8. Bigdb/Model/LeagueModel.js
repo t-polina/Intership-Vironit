@@ -12,10 +12,6 @@ const leagueSchema = new mongoose.Schema({
         required: true,
         enum: ['Winter', 'Spring', 'Summer', 'Autumn']
     },
-    stageSchema: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'StageModel'
-    }],
     userSchema:[{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'UserModel'

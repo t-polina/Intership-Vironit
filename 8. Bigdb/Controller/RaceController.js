@@ -7,23 +7,34 @@ const user = new UserService();
 
 module.exports = class RaceController {
     async create(req, res) {
-        if (stage.checkStageId(req.stageSchema == [])&& user.checkUserId(req.userSchema == [])) {
-            const obj = await race.createRace(req.body);
-            res.send(obj);
-            await stage.addRaсeInStage(req.body.stageSchema, obj._id);
-            await user.addRaсeInUser(req.body.userSchema, obj._id)
+        try {
+            res.send(await race.createRace(req.body));
+        } catch (e) {
+            res.status(400).send(e.message);
         }
-        else res.status(400).send("There is no such stage id");
     }
     async read(req, res) {
         res.send(await race.readRace());
     }
     async delete(req, res) {
-        await stage.deleteRaсeOfStage(req.body.id);
-        await user.deleteRaсeOfUser(req.body.id);
-        res.send(await race.deleteRace(req.body.id));
+        try {
+            res.send(await race.deleteRace(req.body.id));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
     async update(req, res) {
-        res.send(await race.updateRace(req.body.id, req.body));
+        try {
+          res.send(await race.updateRace(req.body.id, req.body));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
+    }
+    async getRace(req, res) {
+        try {
+            res.send(await race.getRaceBySeason(req.params.season));
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     }
 }
