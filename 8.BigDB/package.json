@@ -1,0 +1,20 @@
+{
+    "name": "8.-bigdb",
+    "version": "1.0.0",
+    "description": "",
+    "main": "Server.js",
+    "dependencies": {
+      "connect-mongodb": "^1.1.5",
+      "express": "^4.17.1",
+      "mongoose": "^5.7.3"
+    },
+    "devDependencies": {},
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "npm run-start": "server.js",
+      "mongo": "c:/'Program_Files'/MongoDB/Server/4.2/bin/mongod.exe --dbpath=W:/mongodb-data"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  
