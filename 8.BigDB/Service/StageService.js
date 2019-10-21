@@ -2,33 +2,30 @@ const StageModel = require('../Model/StageModel');
 const RaceService = require('../Service/RaceService');
 const raceService = new RaceService();
 const LeagueModel = require('../Model/LeagueModel');
+const isEmpty = require("../MyFunction/isEmpty")
 
 module.exports = class StageServiсe {
     async createStage(body) {
-        if (await LeagueModel.find({ "_id": body.leagueSchema }) == false) {
+        if (isEmpty(await LeagueModel.findById(body.leagueSchema))) {
             await Promise.reject(new Error("there is no such league id"));
-        } else {
-            return await new StageModel(body).save();
         }
+        return await new StageModel(body).save();
     }
     async updateStage(id, body) {
-        if (body.leagueSchema == undefined) {
-            return await StageModel.findByIdAndUpdate(id, body);
+        if (!isEmpty(body.leagueSchema)) {
+            if (isEmpty(await LeagueModel.findById(body.leagueSchema))) {
+                await Promise.reject(new Error("there is no such league id"));
+            }
         }
-        else if (await LeagueModel.find({ "_id": body.leagueSchema }) == false) {
-            await Promise.reject(new Error("there is no such league id"));
-        }
-        else {
-            return await StageModel.findByIdAndUpdate(id, body);
-        }
+        return await StageModel.findByIdAndUpdate(id, body);
     }
     async deleteStage(id) {
-        if (await StageModel.find({ "_id": id }) == false) {
+        if (isEmpty(await StageModel.findById(id))) {
             await Promise.reject(new Error("there is no such stage id"));
-        } else {
-            raceService.deleteRaceFromStage(id);
-            return await StageModel.remove({ "_id": id });
         }
+        raceService.deleteRaceFromStage(id);
+        return await StageModel.remove({ "_id": id });
+
     }
     async readStage() {
         return await StageModel.find({});

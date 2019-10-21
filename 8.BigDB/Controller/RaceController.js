@@ -18,14 +18,14 @@ module.exports = class RaceController {
     }
     async delete(req, res) {
         try {
-            res.send(await race.deleteRace(req.body.id));
+            res.send(await race.deleteRace(req.params.id));
         } catch (e) {
             res.status(400).send(e.message);
         }
     }
     async update(req, res) {
         try {
-          res.send(await race.updateRace(req.body.id, req.body));
+          res.send(await race.updateRace(req.params.id, req.body));
         } catch (e) {
             res.status(400).send(e.message);
         }

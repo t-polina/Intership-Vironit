@@ -16,7 +16,7 @@ module.exports = class LeagueController {
 
     async delete(req, res) {
         try {
-            res.send(await league.deleteLeague(req.body.id));
+            res.send(await league.deleteLeague(req.params.id));
         } catch (e) {
             res.status(400).send(e.message);
         }
@@ -24,7 +24,7 @@ module.exports = class LeagueController {
 
     async update(req, res) {
         try {
-            res.send(await league.updateLeague(req.body.id, req.body));
+            res.send(await league.updateLeague(req.params.id, req.body));
         } catch (e) {
             res.status(400).send(e.message);
         }

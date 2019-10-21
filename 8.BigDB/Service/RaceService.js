@@ -2,61 +2,62 @@ const RaceModel = require('../Model/RaceModel');
 const StageModel = require('../Model/StageModel');
 const UserModel = require('../Model/UserModel');
 const LeagueModel = require('../Model/LeagueModel');
+const isEmpty = require("../MyFunction/isEmpty")
 
 module.exports = class RaceServiсe {
     async createRace(body) {
         const stage = await StageModel.findById(body.stageSchema);
-        if (stage == null) {
+        console.log(stage)
+        if (isEmpty(stage)) {
             await Promise.reject(new Error("there is no such stage id"))
         }
-        const user = await UserModel.findById( body.userSchema );
-        if (user == null) {
+        const user = await UserModel.findById(body.userSchema);
+        console.log(user)
+        if (isEmpty(user)) {
             await Promise.reject(new Error("there is no such user id"))
         }
-        const leagueId = await StageModel.findById(stage._id, { leagueSchema: 1 });
+        const leagueId = await StageModel.findById(stage._id);
         const league = await LeagueModel.find({ "_id": leagueId.leagueSchema, "userSchema": user._id });
-        if (league == false) {
+        if (isEmpty(league)) {
             await Promise.reject(new Error("The user does not participate in the league to which the race belongs"))
         }
-
         return await new RaceModel(body).save();
     }
-
     async updateRace(id, body) {
-        if (body.stageSchema !== undefined && body.userSchema !== undefined) {
+        if (!isEmpty(body.stageSchema) && !isEmpty(body.userSchema)) {
             const stage = await StageModel.findById(body.stageSchema);
             const user = await UserModel.findById(body.userSchema);
-            if(user==null||stage==null){
+            if (isEmpty(user) || isEmpty(stage)) {
                 await Promise.reject(new Error("Uncorrect user id or stage id "))
             }
             const leagueId = await StageModel.findById(stage._id);
             const league = await LeagueModel.find({ "_id": leagueId.leagueSchema, "userSchema": user._id });
-            if (league == false) {
+            if (isEmpty(league)) {
                 await Promise.reject(new Error("The user does not participate in the league to which the race belongs"))
             }
-        } else if (body.stageSchema == undefined && body.userSchema !== undefined) {
+        } else if (isEmpty(body.stageSchema) && !isEmpty(body.userSchema)) {
             const user = await UserModel.findById(body.userSchema);
-            if (user == null) {
+            if (isEmpty(user)) {
                 await Promise.reject(new Error("there is no such user id"))
             }
             const race = await RaceModel.findById(id)
             const stage = await StageModel.findById(await race.stageSchema);
             const league = await LeagueModel.findById(await stage.leagueSchema).find({ "userSchema": user._id })
 
-            if (league == false) {
+            if (isEmpty(league)) {
                 await Promise.reject(new Error("The user does not participate in the league to which the race belongs"))
             }
 
-        } else if (body.stageSchema !== undefined && body.userSchema == undefined) {
+        } else if (!isEmpty(body.stageSchema) && isEmpty(body.userSchema)) {
             const stage = await StageModel.findById(body.stageSchema);
-            if (stage == null) {
+            if (isEmpty(stage)) {
                 await Promise.reject(new Error("there is no such stage id"))
             }
             const race = await RaceModel.findById(id)
             const user = await race.userSchema
             const league = await LeagueModel.findById(await stage.leagueSchema).find({ "userSchema": user._id })
 
-            if (league == false) {
+            if (isEmpty(league)) {
                 await Promise.reject(new Error("The user does not participate in the league to which the race belongs"))
             }
 
@@ -64,7 +65,7 @@ module.exports = class RaceServiсe {
         return await RaceModel.findByIdAndUpdate(id, body);
     }
     async deleteRace(id) {
-        if (await RaceModel.find({ "_id": id }) == false) {
+        if (isEmpty(await RaceModel.findById(id))) {
             await Promise.reject(new Error("there is no such race id"));
         }
         return await RaceModel.remove({ "_id": id });

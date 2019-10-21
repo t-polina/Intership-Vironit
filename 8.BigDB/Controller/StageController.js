@@ -20,7 +20,7 @@ module.exports = class StageController {
 
     async delete(req, res) {
         try {
-            res.send(await stage.deleteStage(req.body.id));
+            res.send(await stage.deleteStage(req.params.id));
         } catch (e) {
             res.status(400).send(e.message);
         }
@@ -28,7 +28,7 @@ module.exports = class StageController {
 
     async update(req, res) {
         try {
-            res.send(await stage.updateStage(req.body.id, req.body));
+            res.send(await stage.updateStage(req.params.id, req.body));
         } catch (e) {
             res.status(400).send(e.message);
         }
