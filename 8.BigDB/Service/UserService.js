@@ -10,6 +10,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = class UserServise {
+    async getUser(token){
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+        const user = verified;
+        return await UserModel.findById(user._id)
+    }
     async createUser(body) {
         const hashPassword = await bcrypt.hash(body.password, await bcrypt.genSalt(10));
         const user = new UserModel({

@@ -1,6 +1,6 @@
 const LeagueModel = require('../Model/LeagueModel');
 const UserModel = require("../Model/UserModel");
-const StageService = require('../Service/StageService');
+const StageService = require('./StageService');
 const stageService = new StageService();
 const isEmpty = require("../MyFunction/isEmpty")
 

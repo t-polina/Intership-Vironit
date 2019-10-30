@@ -13,6 +13,9 @@ module.exports = class UserController {
     async read(req, res) {
         res.send(await user.readUser());
     }
+    async getUser(req, res) {
+     res.send(await user.getUser(req.header('Authorization')));
+    }
     async delete(req, res) {
         res.send(await user.deleteUser(req.params.id));
     }
@@ -40,7 +43,7 @@ module.exports = class UserController {
     async login(req, res) {
         try {
             const token = await user.login(req.params.login, req.params.password)
-            res.header("auth-token", token).send(token);
+            res.header("Authorization", token).send(token);
         } catch (e) {
             res.status(400).send(e.message);
         }

@@ -1,0 +1,9 @@
+<h2>My Heroes</h2>
+<ul class="heroes">
+    <li *ngFor="let user of user" (click)="onSelect(user)">
+        <span>name: {{user.name}} age: {{user.age}}</span> 
+    </li>
+</ul>
+<div *ngIf="selectedUser">
+    <span>name: {{selectedUser.name}} age: {{selectedUser.age}}</span>
+</div>
