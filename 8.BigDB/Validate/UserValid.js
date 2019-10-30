@@ -9,6 +9,6 @@ module.exports = function (req, res, next) {
         if (req.user.role === "Admin" || req.user.role === "User") next();
         else throw (new Error("Invalid Token"))
     } catch (e) {
-        res.status(400).send('Invalid Token');
+        res.status(401).send(e.message);
     }
 }

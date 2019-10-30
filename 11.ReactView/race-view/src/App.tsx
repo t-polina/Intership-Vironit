@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <Provider store={store} >
         <BrowserRouter>
           <Navigation />
-          <Redirect to={{ pathname: '/login' }} />
+          {/* <Redirect to={{ pathname: '/login' }} /> */}
           <Router />
         </BrowserRouter>
       </Provider>

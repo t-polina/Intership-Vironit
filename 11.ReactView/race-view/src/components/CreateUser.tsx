@@ -2,6 +2,8 @@ import * as React from 'react';
 import { addNewUser } from '../store/users/thunks'
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { TextField } from '@material-ui/core';
 
 class CreateUser extends React.Component<any> {
 
@@ -14,18 +16,19 @@ class CreateUser extends React.Component<any> {
     else if (fildInObject === "password") this.setState({ password: e.target.value })
   }
 
-  setData = () => {
-    if (this.props.addUser(this.state))
-      this.props.history.push('/user')
+   setData =async () => {
+   if(await this.props.addUser(this.state))
+     this.props.history.push('/user')
   }
   render() {
     return (
       <div className="createUser" >
+     {/* <FieldInput id="standard-basic" label="Name"  onChange={(e) => this.refreshData(e, 'name')}/> */}
         <div>name: <input onChange={(e) => this.refreshData(e, 'name')} /></div>
         <div>surname:<input onChange={(e) => this.refreshData(e, 'surname')} /></div>
         <div>login:<input onChange={(e) => this.refreshData(e, 'login')} /></div>
         <div>password: <input onChange={(e) => this.refreshData(e, 'password')} /></div>
-        <NavLink to='/user' onClick={this.setData}>Add user</NavLink>
+        <Button onClick={this.setData}>Add user</Button>
       </div>
     );
   }

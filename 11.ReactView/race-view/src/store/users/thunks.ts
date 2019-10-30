@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export const getUserByToken = (token: string) => async (dispatch: any) => {
     dispatch(actions.getUserRequest())
+    console.log('getUserByToken')
     try {
         console.log(token)
         const header = { 'Authorization': token }
@@ -15,11 +16,10 @@ export const getUserByToken = (token: string) => async (dispatch: any) => {
     }
 }
 export const addNewUser = async (user: any) => {
-    console.log(user)
-    const { data } = await axios.post(`http://localhost:8000/user/`, user)
-    console.log(data)
-    if (data.data !== '') {
-        localStorage.setItem('token', data.data);
+    const { data } = await axios.post(`http://localhost:8000/user`, user)
+   
+    if (data!== '') {
+        localStorage.setItem('token', data);
         return true;
     }
     else return false;

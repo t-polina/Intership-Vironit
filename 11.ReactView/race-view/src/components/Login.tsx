@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { setToken } from '../store/users/thunks'
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
 class Login extends React.Component<any> {
   state = { login: '', password: '' };
@@ -21,7 +22,7 @@ class Login extends React.Component<any> {
       <div className="login" >
         <div>login:<input onChange={(e) => this.handleChange(e, 'login')} /></div>
         <div>password: <input onChange={(e) => this.handleChange(e)} /></div>
-        <button onClick={this.handleClick}>Log in</button>
+        <Button onClick={this.handleClick}>Log in</Button>
       </div>
     );
   }

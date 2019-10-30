@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = class UserServise {
-    async getUser(token){
+    async getUser(token) {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         const user = verified;
         return await UserModel.findById(user._id)
@@ -20,11 +20,13 @@ module.exports = class UserServise {
         const user = new UserModel({
             name: body.name,
             surname: body.surname,
-            login:body.login,
+            login: body.login,
             password: hashPassword,
             role: body.role
         })
-        return await user.save();
+       const newUser = await user.save();
+
+        return jwt.sign({ _id: newUser._id, role: newUser.role }, process.env.TOKEN_SECRET); 
     }
     async updateUser(id, body) {
         if (isEmpty(await UserModel.findById(id))) {
@@ -44,7 +46,7 @@ module.exports = class UserServise {
     }
     async getUserLeague(login) {
         const userObj = await UserModel.find({ login: login }, { _id: 1 });
-        if(isEmpty(userObj)){ await Promise.reject(new Error("login isn't define"))}
+        if (isEmpty(userObj)) { await Promise.reject(new Error("login isn't define")) }
         return await LeagueModel.find({ userSchema: userObj[0]._id });
     }
     async login(login, password) {
