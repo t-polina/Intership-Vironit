@@ -1,0 +1,26 @@
+{
+  "name": "social-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Server.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongodb": "^1.1.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.3",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "mongo": "c:/'Program_Files'/MongoDB/Server/4.2/bin/mongod.exe --dbpath=W:/mongodb-data"
+  },
+  "author": "",
+  "license": "ISC"
+}
