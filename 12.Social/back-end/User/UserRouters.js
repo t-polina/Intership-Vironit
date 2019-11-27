@@ -7,7 +7,7 @@ module.exports = function (app, express) {
     const router = express.Router();
 
     router.get('/', controller.getUser.bind(controller));
-    router.get('/get', controller.read.bind(controller));
+    router.put('/', controller.read.bind(controller));
     router.get('/visitedUser/:login', controller.getVisitedUser.bind(controller));
     router.put('/:id', userValid, controller.update.bind(controller));
     router.delete('/:login', controller.delete.bind(controller));

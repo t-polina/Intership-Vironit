@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { setToken, setIsLogin } from '../store/users/thunks'
+import { setToken, setIsLogin } from '../../store/users/thunks'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 
-class Login extends React.Component<any> {
+class SignIn extends React.Component<any> {
 
   handleClick = async (data: any) => {
     if (await this.props.setUser(data.login, data.password)) {
@@ -28,7 +28,6 @@ class Login extends React.Component<any> {
           }}
           onSubmit={(values) => { this.handleClick(values) }}
         >
-          
           {({ handleSubmit, handleChange }) => (
             <form onSubmit={handleSubmit}>
               <input className="input" type="text" name="login" placeholder="Login" onChange={handleChange} />
@@ -48,7 +47,4 @@ const mapDispatchToProps = (dispatch: any) => {
     setIsLogin: (isLogin: boolean) => dispatch(setIsLogin(isLogin))
   }
 }
-export default connect(null, mapDispatchToProps)(Login)
-
-
-
+export default connect(null, mapDispatchToProps)(SignIn)

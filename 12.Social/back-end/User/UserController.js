@@ -10,7 +10,7 @@ module.exports = class UserController {
         }
     }
     async read(req, res) {
-        res.send(await user.readUsers());
+        res.send(await user.readUsers(req.body.character));
     }
     async getUser(req, res) {
        

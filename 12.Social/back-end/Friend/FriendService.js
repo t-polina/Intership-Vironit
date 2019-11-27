@@ -1,6 +1,6 @@
 const UserModel = require('../User/UserModel');
 const jwt = require('jsonwebtoken');
-const isEmpty = require("../MyFunction/isEmpty");
+const isEmpty = require("../utils/isEmpty");
 const dotenv = require('dotenv');
 dotenv.config();
 

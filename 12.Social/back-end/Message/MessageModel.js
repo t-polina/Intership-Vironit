@@ -9,6 +9,9 @@ const messageSchema = new mongoose.Schema({
         required: true,
         validate:[validateLength, 'More or less than two participant']
     },
+    room: {
+        type: String,
+    },
     message:[{
         text:{
             type: String,

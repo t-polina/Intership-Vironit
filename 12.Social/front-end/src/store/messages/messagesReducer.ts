@@ -1,5 +1,5 @@
 import { initialState } from './messagesSelectors'
-import { GET_MESSAGE_REQUEST, GET_MESSAGE_SUCCESS, GET_MESSAGE_FAILURE, SET_MESSAGE_SUCCESS, SET_MESSAGE_FAILURE } from './messagesActions';
+import { GET_MESSAGE_REQUEST, GET_MESSAGE_SUCCESS, GET_MESSAGE_FAILURE, SET_MESSAGE_SUCCESS, SET_MESSAGE_FAILURE, GET_USER_ROOMS_SUCCESS } from './messagesActions';
 
 const messagesReducer = (state = initialState, { type, payload }: any) => {
     switch (type) {
@@ -12,7 +12,7 @@ const messagesReducer = (state = initialState, { type, payload }: any) => {
             return {
                 ...state,
                 isLoading: false,
-                messagesOnDialog: payload
+                messagesOnDialog: [payload, ...state.messagesOnDialog]
             }
         case GET_MESSAGE_FAILURE:
             return {
@@ -29,6 +29,11 @@ const messagesReducer = (state = initialState, { type, payload }: any) => {
             return {
                 ...state,
                 error: payload
+            }
+        case GET_USER_ROOMS_SUCCESS:
+            return {
+                ...state,
+                rooms: [...state.rooms, payload]
             }
         default: { return state }
     }

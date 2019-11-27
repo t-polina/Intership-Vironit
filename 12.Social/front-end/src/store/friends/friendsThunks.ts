@@ -1,28 +1,30 @@
 import * as actions from './friendsActions';
 import axios from 'axios';
+import { headers } from '../../utils/headers'
 
-export const addOnFriends = (token: string, id: string) => async (dispatch: any) => {
+export const addOnFriends = (id: string) => async (dispatch: any) => {
     try {
-        await axios.put(`http://localhost:8000/friend/${id}`, null, { headers: { 'Authorization': token } });
+     
+        await headers.put(`http://localhost:8000/friend/${id}`, null);
     } catch (e) {
         dispatch(actions.getFriendsFailure(e));
     }
 }
 
-export const getFriends = (token: string) => async (dispatch: any) => {
+export const getFriends = () => async (dispatch: any) => {
     dispatch(actions.getFriendsRequest());
     try {
-        const { data } = await axios.get(`http://localhost:8000/friend/getFriends/`, { headers: { 'Authorization': token } });
+        const { data } = await headers.get(`http://localhost:8000/friend/getFriends/` );
         dispatch(actions.getFriendsSuccess(data));
     } catch (e) {
         dispatch(actions.getFriendsFailure(e));
     }
 }
 
-export const deleteFriend = (token: string, id: string) => async (dispatch: any) => {
+export const deleteFriend = (id: string) => async (dispatch: any) => {
     dispatch(actions.getFriendsRequest());
     try {
-        const { data } = await axios.delete(`http://localhost:8000/friend/${id}`, { headers: { 'Authorization': token } });
+        const { data } = await axios.delete(`http://localhost:8000/friend/${id}`);
         dispatch(actions.getFriendsSuccess(data));
     } catch (e) {
         dispatch(actions.getFriendsFailure(e));

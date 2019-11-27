@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { addNewUser } from '../store/users/thunks'
+import { addNewUser } from '../../store/users/thunks'
 import { connect } from 'react-redux';
 import { Checkbox, Button, Container, CssBaseline, Typography } from '@material-ui/core';
 import { Formik } from 'formik';

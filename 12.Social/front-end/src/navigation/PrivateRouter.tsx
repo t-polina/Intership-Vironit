@@ -16,7 +16,23 @@ export const PrivateRouteUpdate = ({ component: Component, ...rest }: any) => (
         }
     />
 );
-export const PrivateRouteFriend = ({ component: Component, ...rest }: any) => (
+export const PrivateRouteSignIn = ({ component: Component, ...rest }: any) => (
+    <Route {...rest}
+        render={props => {
+            const token =localStorage.getItem('token') || sessionStorage.getItem('token')
+            return !token ? <Component {...props} /> : <Redirect to={{ pathname: "/profile" }} />}
+        }
+    />
+);
+export const PrivateRouteMessage = ({ component: Component, ...rest }: any) => (
+    <Route {...rest}
+        render={props => {
+            const token =localStorage.getItem('token') || sessionStorage.getItem('token')
+            return token ? <Component {...props} /> : <Redirect to={{ pathname: "/signin" }} />}
+        }
+    />
+);
+export const PrivateRouteFriend = ({ component: Component, ...rest  }: any) => (
     <Route {...rest}
         render={props => {
             const token =localStorage.getItem('token') || sessionStorage.getItem('token')

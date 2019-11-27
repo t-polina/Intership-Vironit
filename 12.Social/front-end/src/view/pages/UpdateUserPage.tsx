@@ -1,21 +1,21 @@
 import * as React from 'react';
-import * as selectors from '../store/users/selectors'
+import * as selectors from '../../store/users/selectors'
 import { connect } from 'react-redux';
 import { Container, CssBaseline, Typography, Button } from '@material-ui/core';
-import { getUserByToken, updateUser, deleteUser } from '../store/users/thunks';
+import { getUserByToken, updateUser, deleteUser } from '../../store/users/thunks';
 import { Formik } from 'formik';
 
 class UpdateUser extends React.Component<any> {
-    token = localStorage.getItem('token') || sessionStorage.getItem('token')
+   
     componentDidMount() {
         if (!this.props.user.name) {
-            this.props.getUser(this.token);
+            this.props.getUser();
         }
     }
 
     update = (data: any) => {
         console.log(data)
-        this.props.updateUser(this.props.user.login, data, this.token);
+        this.props.updateUser(this.props.user.login, data);
         this.props.history.push('/profile')
     }
 
@@ -68,8 +68,8 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        getUser: (token: string) => dispatch(getUserByToken(token)),
-        updateUser: (login: string, updateData: any, token: string) => dispatch(updateUser(login, updateData, token)),
+        getUser: () => dispatch(getUserByToken()),
+        updateUser: (login: string, updateData: any) => dispatch(updateUser(login, updateData)),
         deleteUser: (token: string) => deleteUser(token)
     }
 }

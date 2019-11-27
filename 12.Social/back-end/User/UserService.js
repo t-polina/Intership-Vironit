@@ -1,7 +1,7 @@
 const UserModel = require('./UserModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const isEmpty = require("../MyFunction/isEmpty");
+const isEmpty = require("../utils/isEmpty");
 const dotenv = require('dotenv').config();
 
 module.exports = class UserServise {
@@ -10,7 +10,7 @@ module.exports = class UserServise {
         const user = verified;
         return await UserModel.findById(user._id)
     }
-     async createUser(body) {
+    async createUser(body) {
         const hashPassword = await bcrypt.hash(body.password, await bcrypt.genSalt(10));
         if (isEmpty(body.role)) {
             body.role = "User"
@@ -29,7 +29,7 @@ module.exports = class UserServise {
         const user = await UserModel.findOne({ "login": login });
         const validPass = await bcrypt.compare(body.oldPassword, user.password);
         const hashPassword = await bcrypt.hash(body.password, await bcrypt.genSalt(10));
-       
+
         if (body.password === "") {
             body.password = user.password
         } else {
@@ -44,8 +44,10 @@ module.exports = class UserServise {
     async deleteUser(login) {
         return await UserModel.remove({ "login": login });
     }
-    async readUsers() {
-        return await UserModel.find({});
+    async readUsers(character) {
+        const reg = new RegExp(`^${character}.*`);
+        if (!character) return [];
+        return await UserModel.find({ 'login': reg }).limit(5);
     }
     async login(login, password) {
         const user = await UserModel.findOne({ login: login })
@@ -56,6 +58,6 @@ module.exports = class UserServise {
         return token;
     }
     async getVisitedUser(login) {
-        return await UserModel.findOne({login: login});
+        return await UserModel.findOne({ login: login });
     }
 }
