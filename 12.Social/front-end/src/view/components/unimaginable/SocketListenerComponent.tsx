@@ -1,9 +1,11 @@
-import React from 'react'
-import * as selectorsUser from '../../../store/users/selectors'
-import * as selectorsMessage from '../../../store/messages/messagesSelectors'
+import React from 'react';
+import * as selectorsUser from '../../../store/users/userSelectors';
+import * as selectorsMessage from '../../../store/messages/messagesSelectors';
 import { setMessageOnRT, getUserDialogs } from '../../../store/messages/messagesThunks';
 import { connect } from "react-redux";
-import socket from '../../../utils/soket'
+import socket from '../../../utils/soket';
+import Router from '../../../navigation/router';
+import Navigation from '../NavigationBar';
 const socket1 = socket();
 
 export class SocketListener extends React.Component<any> {
@@ -12,12 +14,12 @@ export class SocketListener extends React.Component<any> {
         if (this.props.isLogin) {
             socket1.on('RECEIVE_MESSAGE', (data: any) => {
                 this.props.sendMessage(data);
-            }); 
-            
+            });
+
             socket1.on('REQUESR_JOIN_TO_ROOM', (data: any) => {
-                console.log(data.id )
+                console.log(data.id)
                 if (data.id === this.props.user._id) {
-                    console.log('gggg')
+
                     socket1.emit('JOIN_TO_ROOM', data.room);
                     this.props.sendMessage(data.message);
                 }
@@ -27,8 +29,13 @@ export class SocketListener extends React.Component<any> {
 
 
     render() {
-        socket1.emit('LOGIN','');
-        return (null);
+        socket1.emit('LOGIN', '');
+        return (
+            <React.Fragment>
+                <Navigation />
+                <Router />
+            </React.Fragment>
+        );
     }
 }
 

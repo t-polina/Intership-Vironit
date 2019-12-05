@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { setToken, setIsLogin } from '../../store/users/thunks'
+import { setToken, setIsLogin } from '../../store/users/userThunks'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Container, CssBaseline, Typography } from '@material-ui/core';

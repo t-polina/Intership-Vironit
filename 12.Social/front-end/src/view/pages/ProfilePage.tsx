@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as userSelectors from '../../store/users/selectors'
+import * as userSelectors from '../../store/users/userSelectors'
 import { connect } from 'react-redux';
-import { getUserByToken } from '../../store/users/thunks'
+import { getUserByToken } from '../../store/users/userThunks'
 import { Container, Button} from '@material-ui/core';
 import InfAboutUser from '../components/InfAboutUser'
 import socket from '../../utils/soket'

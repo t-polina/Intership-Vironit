@@ -1,12 +1,19 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 
-export default class FriendREquest extends React.Component<any> {
+interface UserInf {
+    _id: string,
+    login: string
+}
 
-    constructor(props: any) {
-        super(props);
-    }
+interface MyProps {
+    data: UserInf,
+    onClickAdd(_id: string): void,
+    onClickNo(_id: string): void,
+}
 
+export default class FriendREquest extends React.Component<MyProps> {
+    
     render() {
         if (this.props.data.login==null) return (<div></div>);
         return (

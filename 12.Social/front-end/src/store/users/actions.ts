@@ -36,11 +36,6 @@ export const getVisitedUser = (visitedUser: any) => ({
     payload: visitedUser
 });
 
-export const getRequestUsers = (users: any) => ({
-    type: GET_REQUEST_USER_SUCCESS,
-    payload: users
-});
-
 export const setIdFriendMessag = (id: any) => ({
     type: SET_FRIENDS,
     payload: id

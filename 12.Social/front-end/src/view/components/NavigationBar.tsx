@@ -4,25 +4,32 @@ import { NavLink, withRouter } from "react-router-dom";
 import { AppBar, Toolbar, Button, Container } from "@material-ui/core";
 import { connect } from "react-redux";
 
-import * as userSelectors from '../../store/users/selectors'
-import { setIsLogin } from "../../store/users/thunks";
+import * as userSelectors from '../../store/users/userSelectors'
+import { setIsLogin } from "../../store/users/userThunks";
 import socket from '../../utils/soket'
 const socket1 = socket();
 
-export class NavigationBar extends React.Component<any> {
-  token: string | null;
-  constructor(props: any) {
+interface MyProps{
+  isLogin: boolean,
+  setIsLogin(isLogin: boolean): void
+}
+
+export class NavigationBar extends React.Component<MyProps> {
+  private token: string | null;
+
+  constructor(props: MyProps) {
     super(props);
     this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (this.token) this.props.setIsLogin(true);
   }
+
   logout = () => {
     localStorage.clear();
     sessionStorage.clear();
     this.props.setIsLogin(false);
     socket1.emit('DISCONECT', '');
-
   }
+  
   render() {
     return (
       <AppBar position='static'>

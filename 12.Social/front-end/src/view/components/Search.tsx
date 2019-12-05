@@ -2,8 +2,8 @@ import React from "react";
 import Autocomplete from "react-autocomplete";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import * as userSelectors from '../../store/users/selectors'
-import { getAllUsers } from "../../store/users/thunks";
+import * as userSelectors from '../../store/users/userSelectors'
+import { getAllUsers } from "../../store/users/userThunks";
 import { Formik } from "formik";
 import { IconButton } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 class Search extends React.Component<any>{
     isSending = false;
 
-    getUsers = (value: any) => {
+    getUsers = (value: any): void => {
         if (!this.isSending) {
             this.isSending = true;
             setTimeout(() => {

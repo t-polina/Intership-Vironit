@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { Typography } from '@material-ui/core';
 
-export default class Message extends React.Component<any> {
+interface MyProps {
+    sender: string,
+    text: string
+}
 
-    constructor(props: any) {
+export default class Message extends React.Component<MyProps> {
+
+    constructor(props: MyProps) {
         super(props);
     }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as selectors from '../../store/users/selectors'
+import * as selectors from '../../store/users/userSelectors'
 import { connect } from 'react-redux';
 import { Container, CssBaseline, Typography, Button } from '@material-ui/core';
-import { getUserByToken, updateUser, deleteUser } from '../../store/users/thunks';
+import { getUserByToken, updateUser, deleteUser } from '../../store/users/userThunks';
 import { Formik } from 'formik';
 
 class UpdateUser extends React.Component<any> {
@@ -14,7 +14,6 @@ class UpdateUser extends React.Component<any> {
     }
 
     update = (data: any) => {
-        console.log(data)
         this.props.updateUser(this.props.user.login, data);
         this.props.history.push('/profile')
     }
@@ -49,13 +48,13 @@ class UpdateUser extends React.Component<any> {
                         </form>
                     )}
                 </Formik>
-
-                <div className='deletePage' >
+                
                     <Button
                         fullWidth
-                        variant="outlined" color="secondary" onClick={this.delete}
-                    >Delete Page</Button>
-                </div>
+                        variant="outlined"
+                        color="secondary" 
+                        onClick={this.delete}>Delete Page</Button>
+              
             </Container>
         )
     }

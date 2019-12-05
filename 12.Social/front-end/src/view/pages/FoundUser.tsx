@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Container, Button } from '@material-ui/core';
 import InfAboutUser from '../components/InfAboutUser'
 import { connect } from 'react-redux';
-import * as userSelectors from '../../store/users/selectors'
-import { getFoundUser, sendRequest } from '../../store/users/thunks';
+import * as userSelectors from '../../store/users/userSelectors'
+import { getFoundUser} from '../../store/users/userThunks';
+import { sendRequest} from '../../store/friends/friendsThunks';
 
 class FoundUser extends React.Component<any>{
     state = { isRequest: false };

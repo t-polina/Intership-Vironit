@@ -1,12 +1,10 @@
-import Friend from '../components/Friend'
-import FriendRequest  from '../components/FriendRequest'
-
+import Friend from '../components/Friend';
+import FriendRequest from '../components/FriendRequest';
 import * as React from 'react';
-import * as selectors from '../../store/users/selectors'
-import * as friendsSelectors from '../../store/friends/friendsSelectors'
+import * as friendsSelectors from '../../store/friends/friendsSelectors';
 import { connect } from 'react-redux';
 import { Container, Button, Typography } from '@material-ui/core';
-import { getRequestUsers, deleteRequest } from '../../store/users/thunks';
+import { getRequestUsers, deleteRequest } from '../../store/friends/friendsThunks';
 import { addOnFriends, getFriends, deleteFriend } from '../../store/friends/friendsThunks';
 
 class Friends extends React.Component<any>{
@@ -18,7 +16,7 @@ class Friends extends React.Component<any>{
     }
 
     onClickAddOnFriend = (id: any) => {
-        this.props.addOnFriends( id);
+        this.props.addOnFriends(id);
         this.props.getFriends();
         this.props.getRequestUsers();
     }
@@ -34,21 +32,20 @@ class Friends extends React.Component<any>{
     onClickSendMessage = (id: string, login: string) => {
         this.props.history.push(`/message/${login}`);
     }
-    
 
     render() {
         let requests = this.props.users.map((data: any) => {
             return <FriendRequest data={data} onClickAdd={this.onClickAddOnFriend} onClickNo={this.onClickRefuse} />
         })
         let friends = this.props.friends.map((data: any) => {
-            return <Friend data={data} onClickDelete={this.onClickDeleteFromFriends} onClickMessage={this.onClickSendMessage}/>
+            return <Friend data={data} onClickDelete={this.onClickDeleteFromFriends} onClickMessage={this.onClickSendMessage} />
         })
 
 
         return (
             <Container component="main" maxWidth="xs">
                 {this.props.users.length ?
-                 <Button color="secondary" fullWidth onClick={this.onClickR}>You have {this.props.users.length} request</Button>
+                    <Button color="secondary" fullWidth onClick={this.onClickR}>You have {this.props.users.length} request</Button>
                     : <Typography>You don't have requests</Typography>}
                 {this.state.isR ? <div>{requests} </div> : null}
 
@@ -62,14 +59,14 @@ class Friends extends React.Component<any>{
 
 const mapStateToProps = (state: any) => {
     return {
-        users: selectors.requestUsersSelector(state),
+        users: friendsSelectors.requestsOfUserSelector(state),
         friends: friendsSelectors.friendsSelector(state)
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
         getRequestUsers: () => dispatch(getRequestUsers()),
-        addOnFriends: ( id: string) => dispatch(addOnFriends(id)),
+        addOnFriends: (id: string) => dispatch(addOnFriends(id)),
         getFriends: () => dispatch(getFriends()),
         deleteFriend: (id: string) => dispatch(deleteFriend(id)),
         deleteRequest: (id: string) => dispatch(deleteRequest(id))

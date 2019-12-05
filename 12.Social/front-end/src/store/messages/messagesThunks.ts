@@ -16,9 +16,9 @@ export const getDiaologWithUser = (id: string, startIndex: number) => async (dis
         dispatch(actions.getMessageFailure(e));
     }
 }
-export const sendMessage = (messageObj: any, recipient: any, token: any) => async (dispatch: any) => {
+export const sendMessage = (messageObj: any, recipient: string, token: string, isJoin: boolean) => async (dispatch: any) => {
     try {
-        socket1.emit('SEND_MESSAGE', { messageObj: messageObj, recipient: recipient, token: token});
+        socket1.emit('SEND_MESSAGE', { messageObj: messageObj, recipient: recipient, token: token, isJoin: isJoin});
     } catch (e) {
         dispatch(actions.setMessageFailure(e));
     }

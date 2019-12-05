@@ -14,9 +14,11 @@ module.exports = function (server) {
                 let room = await messageService.getARoom(userId, data.recipient).room;
                 data.messageObj.sender = userId;
                 if (isEmpty(room)) {
-                    const dialog = await messageService.saveMessages(userId, data.recipient, data.messageObj);
-                    io.sockets.to(globalRoom).emit("REQUESR_JOIN_TO_ROOM", { message: data.messageObj, id: userId, room: dialog.room });
-                    io.sockets.to(globalRoom).emit("REQUESR_JOIN_TO_ROOM", { message: data.messageObj, id: data.recipient, room: dialog.room });
+                    room = await messageService.saveMessages(userId, data.recipient, data.messageObj);
+                }
+                if (!data.isJoin) {
+                    io.sockets.to(globalRoom).emit("REQUESR_JOIN_TO_ROOM", { message: data.messageObj, id: userId, room: room.room });
+                    io.sockets.to(globalRoom).emit("REQUESR_JOIN_TO_ROOM", { message: data.messageObj, id: data.recipient, room: room.room });
                 }
                 else {
                     io.sockets.to(globalRoom).emit("REQUESR_JOIN_TO_ROOM", { message: data.messageObj, id: data.recipient, room: room });

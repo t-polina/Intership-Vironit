@@ -1,4 +1,4 @@
-import { initialState } from './selectors'
+import { initialState } from './userSelectors'
 import { GET_USER_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, GET_ALL_USERS_SUCCESS, GET_IS_LOGIN, GET_VISITED_USER_SUCCESS, GET_REQUEST_USER_SUCCESS, SET_FRIENDS, SET_LOGIN_MESSAGE } from './actions'
 
 const userReducer = (state = initialState, { type, payload }: any) => {

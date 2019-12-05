@@ -49,24 +49,15 @@ export const getAllUsers = (character: string) => async (dispatch: any) => {
     dispatch(actions.getAllUsers(data));
 }
 
-export const sendRequest = (login: string) => async (dispatch: any) => {
-    headers.post(`http://localhost:8000/friend/${login}`, null);
-}
 export const setIsLogin = (isLogin: boolean) => async (dispatch: any) => {
     dispatch(actions.setIsLoginActions(isLogin));
 }
+
 export const getFoundUser = (loginFoundUser: string) => async (dispatch: any) => {
     const { data } = await headers.get(`http://localhost:8000/user/visitedUser/${loginFoundUser}`);
     dispatch(actions.getVisitedUser(data));
 }
-export const getRequestUsers = () => async (dispatch: any) => {
-    const { data } = await headers.get(`http://localhost:8000/friend/requestUsers`);
-    dispatch(actions.getRequestUsers(data));
-}
-export const deleteRequest = (id: string) => async (dispatch: any) => {
-    const { data } = await headers.delete(`http://localhost:8000/friend/request/${id}`);
-    dispatch(actions.getRequestUsers(data));
-}
+
 export const setIdFriendMessage = (id: string, login: string) => async (dispatch: any) => {
     dispatch(actions.setLoginMessage(login));
     dispatch(actions.setIdFriendMessag(id));

@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { Typography, Container } from '@material-ui/core';
 
-export default class InfAboutUser extends React.Component<any> {
-    constructor(props: any) {
-        super(props);
-    }
+interface MyProps {
+   name: string,
+   surname: string,
+   login: string,
+}
+
+export default class InfAboutUser extends React.Component<MyProps> {
 
     render() {
         return (

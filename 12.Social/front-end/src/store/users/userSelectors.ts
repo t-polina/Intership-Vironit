@@ -5,7 +5,6 @@ export const initialState = {
     error: '',
     isLogin: false,
     visitedUser: {},
-    requestUsers: [],
     idMessage: '',
     messageLogin: ''
 }
@@ -13,7 +12,6 @@ export const initialState = {
 export const userSelector = ({ userReducer }: any) => userReducer.user;
 export const messageLoginSelector = ({ userReducer }: any) => userReducer.messageLogin;
 export const visitedUserSelector = ({ userReducer }: any) => userReducer.visitedUser;
-export const requestUsersSelector = ({ userReducer }: any) => userReducer.requestUsers;
 export const isLoginSelector = ({ userReducer }: any) => userReducer.isLogin;
 export const allUsersSelector = ({ userReducer }: any) => userReducer.allUsers;
 export const isLoadingSelector = ({ userReducer }: any) => userReducer.isLoading;
